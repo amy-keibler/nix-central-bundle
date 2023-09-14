@@ -6,10 +6,9 @@ args@{ pname, version, src, command, ... }:
 let
   chosenStdenv = args.stdenv or stdenv;
   cleanedArgs = builtins.removeAttrs args [
-    "packageRoot"
+    "command"
   ];
 
-  packageRoot = args.packageRoot or "src/main/java";
 in
 chosenStdenv.mkDerivation (cleanedArgs // {
   inherit pname version src;
@@ -26,8 +25,6 @@ chosenStdenv.mkDerivation (cleanedArgs // {
   '';
 
   installPhase = ''
-    mkdir -p $out
-
-    cp target/deploy/* $out/
+    cp target/deploy/*.jar $out
   '';
 })

@@ -11,4 +11,7 @@ in
   mkJar = callPackage ./mkJar.nix { };
   mkJavadocsJar = callPackage ./mkJavadocsJar.nix { };
   mkSourcesJar = callPackage ./mkSourcesJar.nix { };
+  mkJavaComponent = callPackage ./mkJavaComponent.nix { };
+
+  mkCentralBundle = callPackage ./mkCentralBundle.nix { };
 })

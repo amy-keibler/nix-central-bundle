@@ -3,15 +3,11 @@
 , mkJavaDerivation
 }:
 
-args@{ pname, version, src, ... }:
-
-let
-  packageRoot = args.packageRoot or "src/main/java";
-in
+args@{ pname, version, src, packagePath, ... }:
 
 mkJavaDerivation (args // {
   command = ''
-    javadoc -d target/doc ${packageRoot}/**/*.java
+    javadoc -d target/doc ${packagePath}/**/*.java
     jar --create \
       --file target/deploy/${pname}-${version}-javadoc.jar \
       -C target/doc .

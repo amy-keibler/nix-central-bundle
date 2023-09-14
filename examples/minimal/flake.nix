@@ -13,18 +13,22 @@
 
       centralBundleLib = nix-central-bundle.lib.${system};
 
-      commonAttrs = {
-        pname = "minimal";
-        version = "0.0.1";
-        src = ./.;
+      minimumComponent = centralBundleLib.mkJavaComponent {
+        componentNamespace = "io.github.amykeibler";
+        componentName = "minimal";
+        componentVersion = "0.1.0";
+        srcRoot = src/main/java;
       };
 
     in
-    {
-      packages.jar = centralBundleLib.mkJar commonAttrs;
+    rec {
+      packages.bundle = centralBundleLib.mkCentralBundle {
+        pname = "minimal-bundle";
+        version = "0.0.1";
 
-      packages.docs = centralBundleLib.mkJavadocsJar commonAttrs;
-
-      packages.sources = centralBundleLib.mkSourcesJar commonAttrs;
+        components = [
+          minimumComponent
+        ];
+      };
     });
 }

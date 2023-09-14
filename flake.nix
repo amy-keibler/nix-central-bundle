@@ -15,7 +15,7 @@
       };
 
     in
-    {
+    rec {
       lib = mkLib pkgs;
 
       devShells.default = pkgs.mkShell {
